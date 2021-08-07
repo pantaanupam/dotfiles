@@ -112,6 +112,8 @@ HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.cache/zsh/history
 
+# backward kill bind to ^U
+bindkey \^U backward-kill-line
 
 # Basic auto/tab complete:
 autoload -U compinit
