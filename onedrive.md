@@ -36,13 +36,13 @@ cp /usr/share/doc/onedrive/config ~/.config/onedrive/
 
 ### 3.  Select what to sync
 
-1. Sync everything: To sync everything, simple use following command.
+1. **Sync everything**: To sync everything, simple use following command.
 
    ```bash
    onedrive --synchronize
    ```
 
-2. Selective Sync: To sync selective folders or files, create and add files in `~/.config/onedrive/sync_list`. This includes list of files/folders that will be sync
+2. **Selective Sync**: To sync selective folders or files, create and add files in `~/.config/onedrive/sync_list`. This includes list of files/folders that will be sync
 
    ```
    Backup
