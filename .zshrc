@@ -2,14 +2,15 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/anupam/.oh-my-zsh"
+export ZSH="/home/ap/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="dstufft"
-#ZSH_THEME="robbyrussell"
+# ZSH_THEME="random"
+# ZSH_THEME="robbyrussell"
+ZSH_THEME="af-magic"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -24,14 +25,13 @@ ZSH_THEME="dstufft"
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -46,8 +46,9 @@ ZSH_THEME="dstufft"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
-# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -71,6 +72,7 @@ ZSH_THEME="dstufft"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+# plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
@@ -102,11 +104,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 #
-## vi mode
-#bindkey -v
-#export KEYTIMEOUT=1
-#
-#
 # History in cache directory:
 HISTSIZE=10000
 SAVEHIST=10000
@@ -119,3 +116,64 @@ zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots)
+
+# source /home/ap/.oh-my-zsh/lib/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+
+function ash(){
+        /mnt/d/scripts/venv/venv_wsl/bin/python /mnt/d/scripts/auto_login/main.py $@ && \
+        /mnt/d/scripts/auto_login/executables/out.sh
+}
+
+function bitvise(){
+        /mnt/d/scripts/venv/venv_wsl/bin/python /mnt/d/scripts/auto_login/main.py $@ && \
+        cmd.exe /c "D:\\scripts\\venv\\venv_win\\Scripts\\python.exe D:\\scripts\\auto_login\\out_bitvise.py"
+}
+
+
+function t(){
+	oathtool -b --totp 'ON2XFDFDBDRANWB7'|clip.exe
+	clear
+}
+
+function te(){
+	oathtool -b --totp 'LKDJ7THJQR7MG2YZMRDMJRNV4GBOGILG'|clip.exe
+	clear
+}
+
+function v(){
+	oathtool -b --totp '6L4YIOH7W5SI2Z4F45EUMC6G6U'|clip.exe
+	clear
+}
+
+function vpn(){
+	# cmd.exe /c start "VPN CONNECT" cmd /c "D:\\scripts\\vpn\\vpn_auto.bat"
+	cmd.exe /c "D:\\scripts\\vpn\\vpn_auto.bat"
+}
+
+function vpn_gui(){
+        cmd.exe /c "D:\\scripts\\venv\\venv_win\\Scripts\\python.exe D:\\scripts\\vpn\\vpn_gui.py"
+}
+
+function ac(){
+        git add .
+        git commit -m $1
+}
+
+function acp(){
+	git add .
+	git commit -m $1
+	git push
+}
+
+
+function hris(){
+	cd /mnt/d/scripts/hris
+	cmd.exe /c "D:\scripts\hris\venv\Scripts\python.exe D:\scripts\hris\hris.py" $@
+	cd 
+}
+
+function seecert () {
+  nslookup $1
+  echo | openssl s_client -showcerts -servername $1 -connect $1:443 2>/dev/null | openssl x509 -inform pem -noout -text | grep -iA2 "Validity"
+}
